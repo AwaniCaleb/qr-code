@@ -1,13 +1,238 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite App</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+<html lang="en" class="overflow-x-hidden">
+
+<head>
+	<meta charset="UTF-8" />
+	<link rel="icon" type="image/svg+xml" href="/vite.svg" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>QR Code | Awani Caleb</title>
+
+	<!-- Links -->
+	<link rel="stylesheet" href="/node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+	<link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/src/style.css">
+
+	<script type="module" src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="./src/main.js"></script>
+</head>
+
+<body class="bg-black">
+	<header>
+		<nav class="navbar navbar-expand container">
+			<div class="container-fluid">
+				<a class="navbar-brand text-white" href="./">
+					<i class="fa fa-qrcode fs-3"></i>
+				</a>
+				<ul class="navbar-nav justify-content-end flex-grow-1 pe-3 text-white">
+					<li class="nav-item">
+						<a class="nav-link rounded-0 text-white fw-semibold">Turn Words Into Codes</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+
+	<main class="">
+		<div class="container pt-5">
+			<div class="row mt-4">
+				<div class="col-md-6 col-12 col-lg-6">
+					<h1 class="text-white fw-bold pe-lg-4 mb-lg-0 mb-4">Create Your Own Custom QR Codes Instantly!</h1>
+				</div>
+				<div class="col-lg-6 col-md-6 col-12">
+					<p class="text-white mb-4 mb-lg-5 mb-md-5">Unlock the power of QR codes with our easy-to-use
+						generator. Start transforming your text into scannable codes today!</p>
+					<div class="d-flex gap-4">
+						<a class="btn primary rounded-0" href="#generate-section">Generate</a><a href="#faq-section" class="btn primary-outline rounded-0">I'm Confused</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="row mt-5 pt-lg-5 pt-md-5 mb-5">
+				<div class="col-12">
+					<div class="image-cover bg-dark position-relative overflow-hidden d-flex flex-column"
+						style="max-height: 600px;">
+						<img alt="QR Code" class="w-100 h-100 object-fit-cover" src="/images/1.jpg" load="lazy">
+						<span class="position-absolute bottom-0 end-0 px-3 mb-2 shadow-sm py-1 bg-white rounded-start-4 small">Photo by <a
+								href="https://unsplash.com/@aka_opex?utm_content=creditCopyText&amp;utm_medium=referral&amp;utm_source=unsplash"
+								class="text-black fw-bold text-decoration-none">Mitya Ivanov</a> on <a
+								href="https://unsplash.com/photos/person-holding-clear-glass-ball-with-qr-code-background-2HWkORIX3II?utm_content=creditCopyText&amp;utm_medium=referral&amp;utm_source=unsplash"
+								class="text-decoration-none text-black fw-bold">Unsplash</a>
+						</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="row mt-4 mb-5" id="generate-section">
+				<div class="col-md-6 col-12 col-lg-6">
+					<h1 class="text-white fw-bold pe-lg-4 mb-lg-0 mb-4">Generate Your Unique QR Code</h1>
+				</div>
+				<div class="col-lg-6 col-md-6 col-12">
+					<p class="text-white mb-5">
+						Easily create custom QR codes by entering your desired text. Download and share them instantly!
+					</p>
+
+					<form class="row row-cols-lg-auto g-2 align-items-center mb-3" id="generate-code-form">
+						<div class="col-12 flex-fill">
+							<div class="">
+								<input type="text" name="" id="gcf-input" class="form-control input me-2 rounded-0" placeholder="Enter your text" aria-describedby="helpId" required="">
+							</div>
+						</div>
+						<div class="col-12">
+							<button class="btn primary rounded-0" type="submit">Generate Now</button>
+						</div>
+					</form>
+
+					<p class="text-white small">By clicking "Generate Now", you agree to our Terms and Conditions hat I don't have lol.</p>
+				</div>
+
+				<!-- Hidden Button to Trigger Modal -->
+				<button type="button" id="trigger-modal-btn" class="btn btn-primary d-none" data-bs-toggle="modal"
+					data-bs-target="#qrModal">
+					Show Modal
+				</button>
+				
+				<!-- Dark-Themed Modal -->
+				<div class="modal fade" id="qrModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+					aria-labelledby="qrModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered">
+						<div class="modal-content bg-dark text-light">
+							<div class="modal-header border-secondary">
+								<h5 class="modal-title" id="qrModalLabel">Your Generated QR Code</h5>
+								<button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+									aria-label="Close"></button>
+							</div>
+							<div class="modal-body text-center">
+								<!-- QR Code Container -->
+								<div id="qr-container" class="d-flex justify-content-center my-3"></div>
+							</div>
+							<div class="modal-footer border-secondary">
+								<a id="download-qr" class="btn primary">Download QR Code</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row mt-4 mb-5 py-lg-5 py-md-5" id="faq-section">
+				<div class="col-12">
+					<h1 class="text-white fw-bold mb-4">FAQs</h1>
+					<p class="text-white ">Discover answers to common questions about QR code generation and its various applications.</p>
+
+					<div>
+						<div class="accordion custom-accordion d-flex flex-column gap-3" id="accordionExample">
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="headingOne">
+									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+										data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+										What is a QR code?
+									</button>
+								</h2>
+								<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne"
+									data-bs-parent="#accordionExample">
+									<div class="accordion-body">
+										A QR code, or Quick Response code, is a two-dimensional barcode that can store information...
+									</div>
+								</div>
+							</div>
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="headingTwo">
+									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+										data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+										How to generate QR codes?
+									</button>
+								</h2>
+								<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+									data-bs-parent="#accordionExample">
+									<div class="accordion-body">
+										To generate a QR code, simply enter the desired text or URL into our generator...
+									</div>
+								</div>
+							</div>
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="headingThree">
+									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+										data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+										Are QR codes free?
+									</button>
+								</h2>
+								<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+									data-bs-parent="#accordionExample">
+									<div class="accordion-body">
+										Yes, generating QR codes using our tool is completely free. There are no hidden fees or subscriptions required. Enjoy unlimited access to create as many QR codes as you need.
+									</div>
+								</div>
+							</div>
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="headingFour">
+									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+										data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+										Can I customize QR codes?
+									</button>
+								</h2>
+								<div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour"
+									data-bs-parent="#accordionExample">
+									<div class="accordion-body">
+										Unfortunately, QR code customization is not currently available. However, we are actively working to implement this feature in the near future.
+									</div>
+								</div>
+							</div>
+							<div class="accordion-item">
+								<h2 class="accordion-header" id="headingFive">
+									<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+										data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+										How to scan QR codes?
+									</button>
+								</h2>
+								<div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive"
+									data-bs-parent="#accordionExample">
+									<div class="accordion-body">
+										You can scan QR codes using your smartphone camera or a dedicated QR
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row mt-4 mb-5 py-lg-5 py-md-5">
+				<div class="col-12">
+					<h1 class="text-white fw-bold mb-4">Share Your QR Code Experience</h1>
+					<p class="text-white ">We'd love to hear your thoughts! Share your feedback and help us improve our service.</p>
+
+					<div class="d-flex gap-3 flex-column flex-lg-row flex-md-row">
+						<a href="https://github.com/AwaniCaleb/qr-code/" class="btn primary rounded-0">Rate on GitHub</a>
+						<a href="https://github.com/AwaniCaleb/qr-code/issues/new" class="btn primary-outline rounded-0">Leave A Review</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="row mt-5 pt-5">
+				<div class="col-12">
+					<div class="d-flex justify-content-between mb-5">
+						<div>
+							<i class="text-white fa fa-qrcode fs-3"></i>
+						</div>
+						<div class="d-flex gap-2 gap-lg-4 fs-4">
+							<a href="https://www.linkedin.com/in/torishetosan-awani-a7134b297/" class="text-white ">
+								<i class="fa-brands fa-linkedin"></i>
+							</a>
+							<a href="https://x.com/AwaniCaleb" class="text-white ">
+								<i class="fa-brands fa-x-twitter"></i>
+							</a>
+							<a href="https://www.instagram.com/awanicaleb" class="text-white ">
+								<i class="fa-brands fa-instagram"></i>
+							</a>
+						</div>
+					</div>
+					<div class="d-flex justify-content-center align-items-center border-top border-dark-subtle py-4">
+						<p class="text-white">&COPY; 2024 Awani Caleb. All rights reserved</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+
 </html>
