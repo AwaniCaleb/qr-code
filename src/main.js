@@ -1,4 +1,5 @@
 import { inject } from "@vercel/analytics";
+import { injectAnalytics } from "@vercel/analytics/sveltekit";
 
 document.addEventListener("DOMContentLoaded", () => {
 	const form = document.getElementById("generate-code-form");
@@ -9,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	let qrCode;
 
 	inject();
+	injectAnalytics();
 
 	form.addEventListener("submit", function (e) {
 		e.preventDefault();
