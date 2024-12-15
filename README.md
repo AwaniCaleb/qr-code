@@ -2,6 +2,8 @@
 
 A simple and sleek QR code generator built with Vite.
 
+![Preview](./public/images/screenshots/1.png)
+
 ## Features
 - Generate QR codes from any text input.
 - Download QR codes as PNG images.
