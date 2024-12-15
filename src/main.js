@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	let qrCode;
 
 	inject();
-	injectAnalytics();
 
 	form.addEventListener("submit", function (e) {
 		e.preventDefault();
