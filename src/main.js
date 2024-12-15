@@ -1,6 +1,3 @@
-import { inject } from "@vercel/analytics";
-import { injectAnalytics } from "@vercel/analytics/sveltekit";
-
 document.addEventListener("DOMContentLoaded", () => {
 	const form = document.getElementById("generate-code-form");
 	const modalTriggerBtn = document.getElementById("trigger-modal-btn");
@@ -8,8 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
 	const downloadBtn = document.getElementById("download-qr");
 
 	let qrCode;
-
-	inject();
 
 	form.addEventListener("submit", function (e) {
 		e.preventDefault();
